@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.cuerpo2{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgb(22, 0, 31);
+}
+
+.contenedor4{
+    max-width: 800px;
+    width: 100%;
+    padding: 0px 40px 10px 40px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.contenedor4 .titulo{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.contenedor4 form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 12px 0;
+}
+
+form .grupo{
+    margin-top: 15px;
+    width: calc(100%/2 - 20px);
+}
+
+form span{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.grupo input{
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.grupo input:focus,
+.grupo input:valid{
+    border-color: skyblue;
+}
+
+form .boton-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+    width: 100%;
+    height: 40px;
+}
+
+form .boton, form .boton1 {
+    flex: 1;
+}
+
+form .boton input, form .boton1 input {
+    width: 100px;
+    height: 40px;
+    outline: none;
+    cursor: pointer;
+    background: black;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+}
+
+form .boton {
+    display: flex;
+    justify-content: flex-end;
+}
+
+form .boton1 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+form .boton input:hover{
+    background: linear-gradient(130deg,rgb(150, 68, 81), rgb(62, 62, 133));
+}
+
+@media(max-width: 584px){
+    .contenedor4{
+        max-width: 100%;
+    }
+
+    form .grupo{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .contenedor4 form{
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+
+    .contenedor4 form::-webkit-scrollbar{
+        width: 0;
+    }
+
+    form .boton{
+        margin: 20px;
+        
+    }
+}
+
+small{
+    display: none;
+}
+
+.was-validate small{
+    display: block;
+    color: red;
+}

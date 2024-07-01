@@ -1,0 +1,35 @@
+<!-- tienda/templates/productos/list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+
+    <div>
+        <h2>Categorías</h2>
+        {% comment %} <ul>
+            {% for cat in categorias %}
+                <li><a href="{% url 'product_list_by_category' cat.id %}">{{ cat.desc_cat }}</a></li>
+            {% endfor %}
+        </ul> {% endcomment %}
+    </div>
+    
+    {% if categoria %}
+    <div>
+        <h2>Categoría: {{ categoria.desc_cat }}</h2>
+    </div>
+    {% endif %}
+
+    <div>
+        <h2>Productos</h2>
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.titulo_prod }} - {{ producto.precio_prod }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
