@@ -8,9 +8,10 @@ class Producto(models.Model):
     precio_prod = models.IntegerField()
     stock_prod = models.IntegerField()
     editorial_prod = models.CharField(max_length = 30)
+    tipo_prod = models.CharField(max_length = 15, default='General')
 
     def __str__(self):
-        return self.titulo_prod
+        return f"{self.id_prod} - {self.titulo_prod}"
 
 
 class Categoria(models.Model):
