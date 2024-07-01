@@ -20,3 +20,9 @@ def product_list(request, categoria_id=None):
                   {'categoria': categoria,
                    'categorias': categorias,
                    'productos': productos})
+
+def comic_list(request):
+    # Filtrar los productos que son cómics (tipo_prod='Comics') y que tienen stock mayor a 0
+    productos = Producto.objects.filter(tipo_prod='Comics', stock_prod__gt=0)
+    
+    return render(request, 'productos/list.html', {'productos': productos})
