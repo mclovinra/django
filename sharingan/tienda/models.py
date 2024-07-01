@@ -9,6 +9,7 @@ class Producto(models.Model):
     stock_prod = models.IntegerField()
     editorial_prod = models.CharField(max_length = 30)
     tipo_prod = models.CharField(max_length = 15, default='General')
+    img_prod = models.ImageField(upload_to="tienda", null=True)
 
     def __str__(self):
         return f"{self.id_prod} - {self.titulo_prod}"

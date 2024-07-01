@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comics Sharingann</title>
-    <link rel="icon" type="image/img" sizes="360x360" href="{% static 'asset/img/icon.png' %}">
+
+    {% load static %}
+
+    <link rel="icon" type="image/img" sizes="360x360" href="{% static 'img/icon.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'asset/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'asset/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 </head>
 <body>
     <div class="container-fluid mt-2">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'asset/img/logo.gif' %}" alt="sharingan" class="img-logo">
+            <a class="navbar-brand" >
+                <img src="{% static 'img/logo.gif' %}" alt="sharingan" class="img-logo">
                 Sharingann
-                <img src="{% static 'asset/img/logo.gif' %}" alt="sharingan" class="img-logo">
+                <img src="{% static 'img/logo.gif' %}" alt="sharingan" class="img-logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -27,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'index' %}">Inicio<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" >Inicio<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Categorias</a>
@@ -51,13 +54,13 @@
     <div class="container">
         <div class="row">
             {% for producto in productos %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1rem;">
+                    <div class="card d-flex align-items-stretch">
+                        <img src="{{MEDIA_URL}}{{ producto.img_prod.url }}" class="card-img-top image-card" alt="{{ producto.titulo_prod }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.titulo_prod }}</h5>
                             <p class="card-text">{{ producto.desc_prod }}</p>
-                            <p class="card-text"><strong>Precio:</strong> {{ producto.precio_prod }}</p>
-                            <p class="card-text"><strong>Stock:</strong> {{ producto.stock_prod }}</p>
+                            <a href="#" class="btn btn-primary">Comprar ${{ producto.precio_prod }}</a>
                         </div>
                     </div>
                 </div>
