@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import make_password
 
 def validate_only_numbers(value):
     if not value.isdigit():
@@ -14,8 +15,13 @@ class Cliente(models.Model):
     fecha_nac_cli = models.DateField()
     telefono_cli = models.CharField(max_length=15)
     mail_cli = models.EmailField()
-    dir_clie = models.CharField(max_length=60)
+    dir_cli = models.CharField(max_length=60)
     pass_cli = models.CharField(max_length=128)
+
+    def save(self, *args, **kwargs):
+        # Hash the password before saving
+        self.pass_cli = make_password(self.pass_cli)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.rut_cli} - {self.nombre_cli}"

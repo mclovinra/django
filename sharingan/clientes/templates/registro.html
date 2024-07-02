@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="cuerpo2">
+        <div class="contenedor4">
+            <form id="validacion" method="post" novalidate>
+                {% csrf_token %}
+                <div class="grupo">
+                    <span>Rut</span>
+                    {{ form.rut_cli }}
+                </div>
+                <div class="grupo">
+                    <span>DV</span>
+                    {{ form.dv_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Nombre</span>
+                    {{ form.nombre_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Apellido Paterno</span>
+                    {{ form.ape_pat_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Apellido Materno</span>
+                    {{ form.ape_mat_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Fecha de Nacimiento</span>
+                    {{ form.fecha_nac_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Teléfono</span>
+                    {{ form.telefono_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Email</span>
+                    {{ form.mail_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Dirección</span>
+                    {{ form.dir_cli }}
+                </div>
+                <div class="grupo">
+                    <span>Contraseña</span>
+                    {{ form.password1 }}
+                </div>
+                <div class="grupo">
+                    <span>Confirmar Contraseña</span>
+                    {{ form.password2 }}
+                </div>
+                <div class="boton-container">
+                    <div class="boton1">
+                        <a href="{% url 'home' %}"><input type="button" value="Volver"></a>
+                    </div>
+                    <div class="boton">
+                        <input type="submit" value="Registrarse">
+                    </div>
+                </div>
+                <small id="userMessage"></small>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
