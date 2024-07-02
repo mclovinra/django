@@ -1,12 +1,34 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.hashers import make_password, check_password
 
 def validate_only_numbers(value):
     if not value.isdigit():
         raise ValidationError('Este campo solo acepta números.')
 
-class Cliente(models.Model):
+class ClienteManager(BaseUserManager):
+    def create_user(self, rut_cli, dv_cli, nombre_cli, ape_pat_cli, ape_mat_cli, fecha_nac_cli, telefono_cli, mail_cli, dir_cli, password=None, **extra_fields):
+        if not rut_cli:
+            raise ValueError('El Rut debe ser establecido')
+        rut_cli = self.normalize_email(rut_cli)
+        user = self.model(
+            rut_cli=rut_cli, dv_cli=dv_cli, nombre_cli=nombre_cli, ape_pat_cli=ape_pat_cli, ape_mat_cli=ape_mat_cli,
+            fecha_nac_cli=fecha_nac_cli, telefono_cli=telefono_cli, mail_cli=mail_cli, dir_cli=dir_cli, **extra_fields
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, rut_cli, dv_cli, nombre_cli, ape_pat_cli, ape_mat_cli, fecha_nac_cli, telefono_cli, mail_cli, dir_cli, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(rut_cli, dv_cli, nombre_cli, ape_pat_cli, ape_mat_cli, fecha_nac_cli, telefono_cli, mail_cli, dir_cli, password, **extra_fields)
+
+
+class Cliente(AbstractBaseUser):
     rut_cli = models.CharField(primary_key=True, max_length=8, validators=[validate_only_numbers])
     dv_cli = models.CharField(max_length=1)
     nombre_cli = models.CharField(max_length=20)
@@ -16,12 +38,48 @@ class Cliente(models.Model):
     telefono_cli = models.CharField(max_length=15)
     mail_cli = models.EmailField()
     dir_cli = models.CharField(max_length=60)
-    pass_cli = models.CharField(max_length=128)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = ClienteManager()
+
+    USERNAME_FIELD = 'rut_cli'
+    REQUIRED_FIELDS = ['dv_cli', 'nombre_cli', 'ape_pat_cli', 'ape_mat_cli', 'fecha_nac_cli', 'telefono_cli', 'mail_cli', 'dir_cli']
 
     def save(self, *args, **kwargs):
-        # Hash the password before saving
-        self.pass_cli = make_password(self.pass_cli)
+        passw = self.password
+        self.password = make_password(self.password, hasher='pbkdf2_sha256')
+        check_pass = check_password(passw, self.password)
+        print(f"check-raw - {passw}")
+        print(f"check-self - {self.password} - {len(self.password)} - {check_pass}")
         super().save(*args, **kwargs)
+
+    def get_full_name(self):
+        return f'{self.nombre_cli} {self.ape_pat_cli} {self.ape_mat_cli}'
+
+    def get_short_name(self):
+        return self.nombre_cli
+
+    def has_usable_password(self):
+        return True
+
+    def check_password(self, raw_password):
+        print(f"check-raw - {raw_password}")
+        print(f"check-self - {self.password} - {len(self.password)}")
+
+        is_correct = check_password(raw_password, self.password)
+
+        print(f"check_pass - {is_correct}")
+        return is_correct
+
+    def set_password(self, raw_password):
+        
+        self.password = raw_password
 
     def __str__(self):
         return f"{self.rut_cli} - {self.nombre_cli}"
+
+    class Meta:
+        verbose_name = _('cliente')
+        verbose_name_plural = _('clientes')

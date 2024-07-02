@@ -1,7 +1,7 @@
 from django import forms
 from .models import Cliente
 
-class ClienteForm(forms.ModelForm):
+class ClienteRegisterForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
@@ -22,8 +22,13 @@ class ClienteForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        cliente = super().save(commit=False)
-        cliente.pass_cli = self.cleaned_data["password1"]
+        user = super().save(commit=False)
+        user.password = self.cleaned_data["password1"]
         if commit:
-            cliente.save()
-        return cliente
+            user.save()
+        return user
+
+
+class ClienteLoginForm(forms.Form):
+    rut = forms.CharField(max_length=20, required=True, label='Rut')
+    password = forms.CharField(widget=forms.PasswordInput, required=True, label='Contraseña')

@@ -55,8 +55,16 @@
                 <button id="searchButton" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
             </div>
-              {% comment %} <a href="{% url 'login' %}" class="btn btn-outline-light ml-4">Login</a> {% endcomment %}
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger ml-4">Logout</button>
+            </form>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-outline-light ml-4">Login</a>
               <a href="{% url 'registro' %}" class="btn btn-outline-light ml-4">Registrarse</a>
+            {% endif %}
+              
         </nav>
     </div>
   </div> 
