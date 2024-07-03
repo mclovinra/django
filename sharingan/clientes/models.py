@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import make_password, check_password
+from django.conf import settings
 
 def validate_only_numbers(value):
     if not value.isdigit():
@@ -29,6 +30,7 @@ class ClienteManager(BaseUserManager):
 
 
 class Cliente(AbstractBaseUser):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     rut_cli = models.CharField(primary_key=True, max_length=8, validators=[validate_only_numbers])
     dv_cli = models.CharField(max_length=1)
     nombre_cli = models.CharField(max_length=20)
@@ -48,7 +50,6 @@ class Cliente(AbstractBaseUser):
     REQUIRED_FIELDS = ['dv_cli', 'nombre_cli', 'ape_pat_cli', 'ape_mat_cli', 'fecha_nac_cli', 'telefono_cli', 'mail_cli', 'dir_cli']
 
     def save(self, *args, **kwargs):
-        self.password = make_password(self.password, hasher='pbkdf2_sha256')
         super().save(*args, **kwargs)
 
     def get_full_name(self):
@@ -64,8 +65,7 @@ class Cliente(AbstractBaseUser):
         return check_password(raw_password, self.password)
 
     def set_password(self, raw_password):
-        
-        self.password = raw_password
+        self.password = make_password(raw_password)
 
     def __str__(self):
         return f"{self.rut_cli} - {self.nombre_cli}"

@@ -1,0 +1,58 @@
+<!-- templates/carro/detalle_carro.html -->
+{% extends 'base.html' %}
+
+{% load cart_extras %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container fondo-morado-claro" style="margin-top: 2rem; border-radius: 10px;">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12;">
+      {% if carro.items.exists %}
+
+        <h2 class="texto-rojo" style="margin-top: 1rem;">Detalle del Carro de Compras</h2>
+
+        <form method="POST" action="{% url 'carro:update_cart' %}">
+          {% csrf_token %}
+          <input type="hidden" name="carro_id" value="{{ carro.id_pedido }}">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total por Producto</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in carro.items.all %}
+              <tr>
+                <td>{{ item.producto.titulo_prod }}</td>
+                <td>
+                  <div class="input-group">
+                    <button type="submit" name="action" value="resta_{{ item.id }}" class="btn btn-sm btn-outline-secondary">-</button>
+                    <input type="number" id="item_{{ item.id }}_quantity" name="item_{{ item.id }}_quantity" value="{{ item.quantity }}" class="form-control text-center" style="width: 50px;" min="1">
+                    <button type="submit" name="action" value="suma_{{ item.id }}" class="btn btn-sm btn-outline-secondary">+</button>
+                  </div>
+                </td>
+                <td>${{ item.producto.precio_prod }}</td>
+                <td>${{ item.quantity | multiply:item.producto.precio_prod }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <h5>Total del Pedido: ${{ carro.total_pedido }}</h5>
+
+          <a href="" class="btn btn-primary mb-2">Ir a Pagar</a>
+        </form>
+
+      {% else %}
+        <h2 class="texto-rojo" style="margin-top: 1rem;">No hay productos en el carro</h2>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

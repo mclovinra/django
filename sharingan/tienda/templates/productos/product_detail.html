@@ -20,6 +20,7 @@
                         <p id="editorialPage">Editorial: {{ producto.editorial_prod }}</p>
                         <p id="descPage">{{ producto.desc_prod }}</p>
                         <a id="volverPage" href="{% url 'comic_list' %}" class="btn btn-warning">Volver</a>
+                        <a href="{% url 'carro:add_to_cart' producto.id_prod %}" class="btn btn-success">Agregar al Carrito</a>
                     </div>
                 </div>
             </div>
