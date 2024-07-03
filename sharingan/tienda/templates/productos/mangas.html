@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {% for producto in productos %}
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1rem;">
+                    <div class="card d-flex align-items-stretch">
+                        <img src="{{MEDIA_URL}}{{ producto.img_prod.url }}" class="card-img-top image-card" alt="{{ producto.titulo_prod }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.titulo_prod }}</h5>
+                            <p class="card-text">{{ producto.desc_prod }}</p>
+                            <h5 class="card-title">${{ producto.precio_prod }}</h5>
+                            <a href="{% url 'product_detail' producto.id_prod %}" class="btn btn-primary">Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

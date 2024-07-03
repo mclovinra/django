@@ -43,26 +43,24 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Categorias</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'comic_list' %}">Comics</a>
-                    <a class="dropdown-item" href="{% url 'comic_list' %}">Mangas</a>
+                    <a class="dropdown-item" href="{% url 'manga_list' %}">Mangas</a>
                 </div>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Administradores</a>
-                </li>             
+                </li>            
             </ul>
-            <form class="d-flex" role="search">
-                <input id="searchInput" class="form-control mr-1" type="search" placeholder="Buscar..." aria-label="Search">
-                <button id="searchButton" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-            </form>
+            <form class="d-flex" role="search" action="{% url 'search' %}" method="GET">
+              <input id="searchInput" class="form-control mr-1" type="search" name="q" placeholder="Buscar..." aria-label="Search">
+              <button id="searchButton" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+          </form>
             </div>
             {% if user.is_authenticated %}
-            <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger ml-4">Logout</button>
-            </form>
+                <span class="navbar-text ml-4">Bienvenido, {{ user.get_short_name }}</span>
+                <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger ml-4">Logout</button>
+                </form>
             {% else %}
-              <a href="{% url 'login' %}" class="btn btn-outline-light ml-4">Login</a>
-              <a href="{% url 'registro' %}" class="btn btn-outline-light ml-4">Registrarse</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-light ml-4">Login</a>
+                <a href="{% url 'registro' %}" class="btn btn-outline-light ml-4">Registrarse</a>
             {% endif %}
               
         </nav>

@@ -48,11 +48,7 @@ class Cliente(AbstractBaseUser):
     REQUIRED_FIELDS = ['dv_cli', 'nombre_cli', 'ape_pat_cli', 'ape_mat_cli', 'fecha_nac_cli', 'telefono_cli', 'mail_cli', 'dir_cli']
 
     def save(self, *args, **kwargs):
-        passw = self.password
         self.password = make_password(self.password, hasher='pbkdf2_sha256')
-        check_pass = check_password(passw, self.password)
-        print(f"check-raw - {passw}")
-        print(f"check-self - {self.password} - {len(self.password)} - {check_pass}")
         super().save(*args, **kwargs)
 
     def get_full_name(self):
@@ -65,13 +61,7 @@ class Cliente(AbstractBaseUser):
         return True
 
     def check_password(self, raw_password):
-        print(f"check-raw - {raw_password}")
-        print(f"check-self - {self.password} - {len(self.password)}")
-
-        is_correct = check_password(raw_password, self.password)
-
-        print(f"check_pass - {is_correct}")
-        return is_correct
+        return check_password(raw_password, self.password)
 
     def set_password(self, raw_password):
         

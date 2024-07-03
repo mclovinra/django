@@ -23,12 +23,11 @@ def login_view(request):
         if form.is_valid():
             rut = form.cleaned_data.get('rut')
             password = form.cleaned_data.get('password')
-            
-            # Aquí especificamos el backend de autenticación
-            user = authenticate(request, rut=rut, password=password, backend='clientes.auth_backends.ClienteBackend')
+
+            user = ClienteBackend.authenticate(request, rut_cli=rut, password=password)
             
             if user is not None:
-                login(request, user, backend='clientes.auth_backends.ClienteBackend')  # Especificamos el backend nuevamente
+                login(request, user, backend='clientes.auth_backends.ClienteBackend')
                 print(f"Usuario {rut} ha iniciado sesión correctamente.")
                 return redirect('home')
             else:
