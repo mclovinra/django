@@ -29,7 +29,7 @@ def registro_view(request):
     else:
         form = ClienteRegisterForm()
 
-    return render(request, 'clientes/registro.html', {'form': form})
+    return render(request, 'registro.html', {'form': form})
 
 
 def login_view(request):
