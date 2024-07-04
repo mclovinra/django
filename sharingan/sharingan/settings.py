@@ -95,7 +95,7 @@ if not DEBUG:
     STATIC_ROOT = '/opt/render/project/src/sharingan/staticfiles'
     # Ruta donde se encuentran los archivos estáticos en tu proyecto
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static")
+        os.path.join(BASE_DIR, 'appweb', 'static')
     ]
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
