@@ -43,3 +43,4 @@ def search_results(request):
         productos = Producto.objects.none()
     
     return render(request, 'productos/search_results.html', {'productos': productos, 'query': query})
+

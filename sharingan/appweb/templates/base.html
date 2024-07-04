@@ -59,7 +59,7 @@
               <a href="{% url 'carro:cart_detail' %}" class="btn btn-outline-light ml-4 position-relative">
                 <i class="bi bi-cart"></i> Carrito
                 {% if cart_count > 0 %}
-                <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">{{ cart_count }}</span>
+                  <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">{{ cart_count }}</span>
                 {% endif %}
             </a>
               <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0">

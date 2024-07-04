@@ -53,12 +53,18 @@ def add_to_cart(request, producto_id):
             # Verificar si el producto ya está en el carro
             carro_item, item_created = CarroItem.objects.get_or_create(carro=carro, producto=producto)
 
+            print(f'{carro_item.quantity} - {producto.stock_prod}')
+            
             if not item_created:
-                # Actualizar la cantidad si el producto ya está en el carro
-                carro_item.quantity += 1
-                carro_item.save()
-                messages.success(request, f"{producto.titulo_prod} se ha agregado al carrito.")
+                if carro_item.quantity < producto.stock_prod:
+                    carro_item.quantity += 1
+                    carro_item.save()
+                    carro.update_total()
+                    messages.success(request, f"{producto.titulo_prod} se ha agregado al carrito.")
+                else:
+                    messages.warning(request, f"No se pueden agregar más unidades de {producto.titulo_prod} al carrito.")
             else:
+                carro.update_total()
                 messages.success(request, f"{producto.titulo_prod} se ha agregado al carrito.")
 
             # Redirigir al detalle del producto agregado al carrito
@@ -69,6 +75,7 @@ def add_to_cart(request, producto_id):
         messages.error(request, "Debe iniciar sesión para agregar productos al carrito.")
 
     return redirect('product_detail', id_prod=producto_id)
+
 
 def update_cart(request):
     if request.method == 'POST':
@@ -93,7 +100,11 @@ def update_cart(request):
                     item.quantity -= 1
                 elif action == f'suma_{item_id}':
                     # Si se presionó el botón de suma para este ítem
-                    item.quantity += 1
+                    # Verificar si la cantidad en el carro ya iguala al stock disponible
+                    if item.quantity < item.producto.stock_prod:
+                        item.quantity += 1
+                    else:
+                        messages.warning(request, f"No se pueden agregar más unidades de {item.producto.titulo_prod} al carrito.")
                 else:
                     # Si no se presionó ningún botón de suma o resta, mantener la cantidad actual
                     pass
