@@ -27,7 +27,7 @@ def cart_detail(request):
     # Verificar si el usuario tiene un cliente asociado
     if hasattr(user, 'rut_cli'):
         cliente = user.rut_cli  # Acceder al cliente asociado mediante la relación OneToOneField
-        carro = get_object_or_404(Carro, cliente=cliente)
+        carro, created = Carro.objects.get_or_create(cliente_id=cliente)
 
         context = {
             'carro': carro,
@@ -49,13 +49,11 @@ def add_to_cart(request, producto_id):
         # Verificar si hay stock disponible para el producto
         if producto.stock_prod > 0:
             # Obtener o crear el carro del cliente
-            carro, created = Carro.objects.get_or_create(cliente=cliente)
+            carro, created = Carro.objects.get_or_create(cliente_id=cliente)
 
             # Verificar si el producto ya está en el carro
             carro_item, item_created = CarroItem.objects.get_or_create(carro=carro, producto=producto)
 
-            print(f'{carro_item.quantity} - {producto.stock_prod}')
-            
             if not item_created:
                 if carro_item.quantity < producto.stock_prod:
                     carro_item.quantity += 1
