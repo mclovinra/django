@@ -2,8 +2,8 @@ from django import forms
 from .models import Cliente
 
 class ClienteRegisterForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
+    password1 = forms.CharField(widget=forms.PasswordInput(), label="Password")
+    password2 = forms.CharField(widget=forms.PasswordInput(), label="Confirm Password")
 
     class Meta:
         model = Cliente
@@ -23,7 +23,7 @@ class ClienteRegisterForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.password = self.cleaned_data["password1"]
+        user.set_password(self.cleaned_data["password1"])  # Hash the password
         if commit:
             user.save()
         return user

@@ -45,7 +45,7 @@
           </table>
           <h5>Total del Pedido: ${{ carro.total_pedido }}</h5>
 
-          <a href="{% url 'carro:crear_pedido_desde_carro' carro_id=carro.id_pedido %}" class="btn btn-primary mb-2">Ir a Pagar</a>
+            <a href="{% url 'carro:crear_pedido_desde_carro' carro_id=carro.id_pedido %}" class="btn btn-primary mb-2" onclick="alert('Compra Exitosa');">Ir a Pagar</a>
         </form>
 
       {% else %}
