@@ -46,10 +46,12 @@
           <h5>Total del Pedido: ${{ carro.total_pedido }}</h5>
 
           <a href="" class="btn btn-primary mb-2">Ir a Pagar</a>
+          
         </form>
 
       {% else %}
         <h2 class="texto-rojo" style="margin-top: 1rem;">No hay productos en el carro</h2>
+        <a id="volverInicio" href="{% url 'home' %}" class="btn btn-warning">Inicio</a>
       {% endif %}
     </div>
   </div>
