@@ -1,20 +1,35 @@
 from django.shortcuts import render, redirect
 from .forms import ClienteRegisterForm, ClienteLoginForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from clientes.auth_backends import ClienteBackend
-
-
+from django.contrib import messages
 
 
 def registro_view(request):
     if request.method == 'POST':
         form = ClienteRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Crear el objeto User primero
+            user = User.objects.create_user(
+                username=form.cleaned_data['rut_cli'],
+                password=form.cleaned_data['password1']
+            )
+            user.save()
+
+            # Luego crear el objeto Cliente y enlazarlo al User
+            cliente = form.save(commit=False)
+            cliente.user = user
+            cliente.save()
+
+            messages.success(request, 'Registro completado exitosamente.')
             return redirect('home')
+        else:
+            messages.error(request, 'Por favor, corrija los errores en el formulario.')
     else:
         form = ClienteRegisterForm()
-    return render(request, 'registro.html', {'form': form})
+
+    return render(request, 'clientes/registro.html', {'form': form})
 
 
 def login_view(request):

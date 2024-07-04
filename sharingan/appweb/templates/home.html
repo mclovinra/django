@@ -14,57 +14,49 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12;">
             <h2 class="texto-blanco titulos" style="margin-top: 1rem;">RECOMENDADOS DE LA SEMANA - COMICS</h2>
-              <div class="accordion" id="accordionExample" style="margin: 2rem;">
-              </div>
           </div>
         </div>
       </div>
 
     <div class="container" style="margin-top: 2rem;">
         <div class="row">
-            <div id="carouselExampleCaptions2" class="carousel slide col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div id="carouselExampleCaptions3" class="carousel slide col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="carousel-inner">
-                    {% for comic in comics %}
+                    {% for Comic in comics %}
                     {% if forloop.first or forloop.counter0|divisibleby:4 %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <div class="container">
-                                    <div class="row">
-                        {% endif %}
-                                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1rem;">
-                                            <div class="card d-flex align-items-stretch">
-                                                <a href="{% url 'product_detail' id_prod=comic.id_prod %}">
-                                                    <img src="{{ comic.img_prod.url }}" class="card-img-top image-card" alt="{{ comic.titulo_prod }}">
-                                                </a>
-                                            </div>
-                                        </div>
-                        {% if forloop.last or forloop.counter0|add:1|divisibleby:4 %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="container">
+                            <div class="row">
+                                {% endif %}
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1rem;">
+                                    <div class="card d-flex align-items-stretch">
+                                        <a href="{% url 'product_detail' id_prod=Comic.id_prod %}">
+                                            <img src="{{ Comic.img_prod.url }}" class="card-img-top image-card" alt="{{ Comic.titulo_prod }}">
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                        {% if forloop.last and not forloop.first and forloop.counter0|add:1|divisibleby:4 %}
+                                {% if forloop.counter|divisibleby:4 or forloop.last %}
                             </div>
                         </div>
-                        {% endif %}
+                    </div>
+                    {% endif %}
                     {% empty %}
-                        <div class="carousel-item active">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h5>No hay Comics disponibles en el stock.</h5>
-                                    </div>
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>No hay Comics disponibles en el stock.</h5>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {% endfor %}
                 </div>
-
-                <button class="carousel-control-prev prev" type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide="prev">
+                <button class="carousel-control-prev prev" type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-
-                <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide="next">
+                <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>

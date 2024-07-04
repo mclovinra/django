@@ -12,7 +12,6 @@
                         <img src="{{MEDIA_URL}}{{ producto.img_prod.url }}" class="card-img-top image-card" alt="{{ producto.titulo_prod }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.titulo_prod }}</h5>
-                            <p class="card-text">{{ producto.desc_prod }}</p>
                             <h5 class="card-title">${{ producto.precio_prod }}</h5>
                             <a href="{% url 'product_detail' producto.id_prod %}" class="btn btn-primary">Detalles</a>
                         </div>
