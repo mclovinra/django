@@ -91,16 +91,22 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 if not DEBUG:
-    # Ruta donde se recolectarán los archivos estáticos en Render
+    # Ruta donde se recolectan los archivos estáticos en Render
     STATIC_ROOT = '/opt/render/project/src/sharingan/staticfiles'
     # Ruta donde se encuentran los archivos estáticos en tu proyecto
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'appweb', 'static')
+        os.path.join(BASE_DIR, "static")
     ]
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Configuración de medios (media)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Ajuste para Render específicamente
+if 'RENDER_EXTERNAL_HOSTNAME' in os.environ:
+    STATIC_URL = f"https://{os.environ['RENDER_EXTERNAL_HOSTNAME']}/static/"
+    MEDIA_URL = f"https://{os.environ['RENDER_EXTERNAL_HOSTNAME']}/media/"
 
 AUTHENTICATION_BACKENDS = [
     'clientes.auth_backends.ClienteBackend',
