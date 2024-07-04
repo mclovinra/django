@@ -5,6 +5,7 @@ from tienda.models import Producto
 from django.contrib.auth.decorators import login_required
 from .models import Carro, CarroItem
 from clientes.models import Cliente
+from pedidos.models import Pedido 
 
 def home_view(request):
     cart_count = 0
@@ -121,3 +122,18 @@ def update_cart(request):
     else:
         messages.error(request, 'Método no permitido.')
         return redirect('carro:cart_detail')
+
+
+def crear_pedido_desde_carro(request, carro_id):
+    carro = get_object_or_404(Carro, id_pedido=carro_id)
+    
+    if request.method == 'GET':
+        # Crear el pedido desde el carro
+        pedido = Pedido.crear_desde_carro(carro)
+        
+        # Redirigir a la página de detalle del pedido o donde sea necesario
+        return redirect('carro:cart_detail')
+    
+    # Manejar otros métodos POST, etc. si es necesario
+
+    return redirect('carro:cart_detail')  # Redirigir de vuelta al detalle del carro si no es GET
