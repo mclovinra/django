@@ -9,10 +9,12 @@ def home_view(request):
         cart_count = 0  # Reemplaza con tu lógica para contar los artículos en el carrito
 
     comics_list = Producto.objects.filter(tipo_prod='Comic', stock_prod__gte=15)[:12]
+    mangas_list = Producto.objects.filter(tipo_prod='Manga', stock_prod__gte=15)[:12]
 
     context = {
         'cart_count': cart_count,
         'comics': comics_list,
+        'mangas': mangas_list,
     }
     return render(request, 'home.html', context)
 
