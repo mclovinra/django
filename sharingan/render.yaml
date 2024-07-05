@@ -4,5 +4,5 @@ services:
     name: sharingan-website
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn sharingan.wsgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "gunicorn sharingan.sharingan.wsgi:application -k uvicorn.workers.UvicornWorker"
 
