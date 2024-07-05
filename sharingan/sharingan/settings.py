@@ -8,7 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='0uIjGj5roR2abZNWLjIWRxnEosKsmhnlE3kNLKF65eHYv7BhEdcwwLB_AqkrfFFYI9s')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# DEBUG = 'RENDER' not in os.environ
+
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
