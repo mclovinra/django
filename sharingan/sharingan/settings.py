@@ -5,12 +5,12 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '0uIjGj5roR2abZNWLjIWRxnEosKsmhnlE3kNLKF65eHYv7BhEdcwwLB_AqkrfFFYI9s')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='0uIjGj5roR2abZNWLjIWRxnEosKsmhnlE3kNLKF65eHYv7BhEdcwwLB_AqkrfFFYI9s')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['sharingan-website.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
