@@ -126,6 +126,15 @@ def crear_pedido_desde_carro(request, carro_id):
     carro = get_object_or_404(Carro, id_pedido=carro_id)
     
     if request.method == 'GET':
+
+        # Verificar el stock de los productos en el carro
+        for item in carro.items.all():
+            producto = Producto.objects.get(id_prod=item.producto.id_prod)
+
+            if item.quantity > producto.stock_prod:
+                messages.error(request, f"Stock insuficiente para el producto {producto.titulo_prod}")
+                return redirect('carro:cart_detail')
+
         # Crear el pedido desde el carro
         pedido = Pedido.crear_desde_carro(carro)
         
