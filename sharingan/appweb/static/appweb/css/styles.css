@@ -241,3 +241,13 @@
     top: 50%;
     z-index: 1050;
 } */
+
+.centrado {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    height: 100vh; 
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
