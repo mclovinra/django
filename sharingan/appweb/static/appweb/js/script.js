@@ -9,23 +9,24 @@
 
 function showLoadingSpinner(event) {
     event.preventDefault();  // Evita la acción predeterminada del evento
-    const spinner = document.getElementById('loading-spinner');
+    //const spinner = document.getElementById('loading-spinner');
     const successMessage = document.getElementById('success-message');
     const successMessage1 = document.getElementById('success-message1');
     const successMessage2 = document.getElementById('success-message2'); // Nombre corregido para el tercer mensaje
 
-    spinner.style.display = 'block';
-    successMessage.style.display = 'none';
+    //spinner.style.display = 'block';
+    successMessage.style.display = 'block';
     successMessage1.style.display = 'none';
     successMessage2.style.display = 'none';
 
     setTimeout(() => {
-        spinner.style.display = 'none';
-        successMessage.style.display = 'block';
-
-        setTimeout(() => {
-            successMessage.style.display = 'none';
-            successMessage1.style.display = 'block';
+        //spinner.style.display = 'none';
+        successMessage.style.display = 'none';
+        successMessage1.style.display = 'block';
+        
+        //setTimeout(() => {
+            //successMessage.style.display = 'none';
+            //successMessage1.style.display = 'block';
 
             setTimeout(() => {
                 successMessage1.style.display = 'none';
@@ -36,7 +37,7 @@ function showLoadingSpinner(event) {
                     window.location.href = event.target.href;
                 }, 1500); // Muestra el tercer mensaje por 3 segundos antes de redirigir
             }, 1500); // Duración antes de mostrar el tercer mensaje
-        }, 1500); // Duración antes de mostrar el segundo mensaje
+        //}, 1500); // Duración antes de mostrar el segundo mensaje
     }, 2000); // Duración del spinner
 }
 

@@ -46,10 +46,11 @@
           <h5>Total del Pedido: ${{ carro.total_pedido }}</h5>
 
           <a href="{% url 'carro:crear_pedido_desde_carro' carro_id=carro.id_pedido %}" class="btn btn-primary mb-2" onclick="showLoadingSpinner(event)">Ir a Pagar</a>
-          <div id="loading-spinner" class="spinner-grow text-light" role="status" style="display: none;">
-              <span class="visually-hidden">Loading...</span>
+          
+          <div id="success-message" class="texto-blanco titulos" style="display: none;">
+            <div class="spinner-border" ></div>
+            <h2 class="texto-blanco titulos">Espere...</h2>
           </div>
-          <div id="success-message" class="texto-blanco titulos" style="display: none;"><h2>Espere...</h2></div>
           <div id="success-message1" class="texto-blanco titulos" style="display: none;"><h2>¡¡Compra exitosa!!</h2></div>
           <div id="success-message2" class="texto-blanco titulos" style="display: none;"><h2>Volviendo al Carrito...</h2></div>
         </form>
