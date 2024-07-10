@@ -233,3 +233,11 @@
     width: 100px;
     margin-bottom: 20px;
 }
+
+/* #loading-spinner {
+    display: none; 
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 1050;
+} */
