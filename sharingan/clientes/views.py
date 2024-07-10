@@ -23,7 +23,7 @@ def registro_view(request):
             cliente.save()
 
             messages.success(request, 'Registro completado exitosamente.')
-            return redirect('home')
+            return redirect('login')
         else:
             messages.error(request, 'Por favor, corrija los errores en el formulario.')
     else:

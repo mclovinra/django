@@ -4,7 +4,7 @@
 
 {% block content %}
 
-  <div class="container mt-5">
+<div class="container mt-5">
     <div class="row">
         <div class="col-12">
             <div class="card-custom">
@@ -23,13 +23,29 @@
                         <a id="volverManga" href="{% url 'manga_list' %}" class="btn btn-warning">+ Mangas</a>
                         <a id="volverInicio" href="{% url 'home' %}" class="btn btn-warning">Inicio</a>
                         {% if user.is_authenticated %}
-                        <a id="liveAlertPlaceholder" href="{% url 'carro:add_to_cart' producto.id_prod %}" class="btn btn-success" onclick="alert('Producto Agregado');">Agregar</a>
+                        <a id="liveAlertPlaceholder" href="{% url 'carro:add_to_cart' producto.id_prod %}" class="btn btn-success">Agregar</a>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
-  
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const stock = parseInt("{{ producto.stock_prod }}");
+    const addToCartButton = document.querySelector('#liveAlertPlaceholder');
+
+    if (stock === 0) {
+        addToCartButton.classList.add('disabled');  // Agrega la clase 'disabled' para deshabilitar el estilo del botón
+        addToCartButton.setAttribute('aria-disabled', 'true');  // Atributo para accesibilidad
+        addToCartButton.addEventListener('click', function(event) {
+            event.preventDefault();  // Evita que se ejecute la acción predeterminada del clic
+            alert('No hay stock disponible para este producto.');  // Puedes agregar un mensaje o alerta personalizada
+        });
+    }
+});
+</script>
+
 {% endblock %}

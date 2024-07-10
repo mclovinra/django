@@ -28,7 +28,6 @@ class ClienteManager(BaseUserManager):
 
         return self.create_user(rut_cli, dv_cli, nombre_cli, ape_pat_cli, ape_mat_cli, fecha_nac_cli, telefono_cli, mail_cli, dir_cli, password, **extra_fields)
 
-
 class Cliente(AbstractBaseUser):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     rut_cli = models.CharField(primary_key=True, max_length=8, validators=[validate_only_numbers])

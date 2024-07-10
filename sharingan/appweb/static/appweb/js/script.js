@@ -6,6 +6,7 @@
 //    }, 2000); // Retraso en milisegundos (por ejemplo, 2000ms = 2 segundos)
 //}
 
+
 function showLoadingSpinner(event) {
     event.preventDefault();  // Evita la acción predeterminada del evento
     const spinner = document.getElementById('loading-spinner');
@@ -38,5 +39,6 @@ function showLoadingSpinner(event) {
         }, 1500); // Duración antes de mostrar el segundo mensaje
     }, 2000); // Duración del spinner
 }
+
 
 
