@@ -23,6 +23,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ producto.titulo_prod }}</h5>
                                 <h5 class="card-title">${{ producto.precio_prod }}</h5>
+                                <p id="stockPage">Stock: {{ producto.stock_prod }}</p>
                                 <a href="{% url 'product_detail' producto.id_prod %}" class="btn btn-primary">Detalles</a>
                             </div>
                         </div>
