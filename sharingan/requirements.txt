@@ -1,12 +1,13 @@
-asgiref==3.8.1
-click==8.1.7
-colorama==0.4.6
-Django==5.0.6
-gunicorn==22.0.0
-h11==0.14.0
-packaging==24.1
-pillow==10.3.0
-sqlparse==0.5.0
-tzdata==2024.1
-uvicorn==0.30.1
-whitenoise==6.7.0
+# Librerías estándar
+asgiref==3.8.1         # Asynchronous Python ASGI server
+click==8.1.7           # Comandos de interfaz de línea de comandos
+colorama==0.4.6        # Colores en la terminal
+Django==5.0.6          # Framework web de Python
+gunicorn==22.0.0       # Servidor HTTP WSGI para producción
+h11==0.14.0            # Implementación de HTTP/1.1 en Python
+packaging==24.1        # Biblioteca para manejo de paquetes de Python
+pillow==10.3.0         # Librería de imágenes en Python
+sqlparse==0.5.0        # Analizador de SQL en Python
+tzdata==2024.1         # Información de zonas horarias
+uvicorn==0.30.1        # Servidor ASGI ligero
+whitenoise==6.7.0      # Servidor de archivos estáticos para Django

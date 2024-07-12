@@ -20,13 +20,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 from appweb import views
 
+# Configuración de las URLs del proyecto Django
 urlpatterns = [
-    path('admin/', admin.site.urls), 
+    # Ruta para acceder al panel de administración de Django
+    path('admin/', admin.site.urls),
+
+    # URLs de la aplicación 'tienda'
     path('tienda/', include('tienda.urls')),
+
+    # Ruta de la página de inicio del sitio, usando la vista 'home_view' y con nombre 'home'
     path('', views.home_view, name='home'),
+
+    # URLs de la aplicación 'appweb'
     path('appweb/', include('appweb.urls')),
+
+    # URLs de la aplicación 'clientes'
     path('clientes/', include('clientes.urls')),
+
+    # URLs de la aplicación 'carro'
     path('carro/', include('carro.urls')),
 ]
 
+# Configuración para servir archivos estáticos (media) durante el desarrollo
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
