@@ -42,4 +42,3 @@ function showLoadingSpinner(event) {
 }
 
 
-

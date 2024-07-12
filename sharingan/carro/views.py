@@ -5,7 +5,9 @@ from tienda.models import Producto
 from django.contrib.auth.decorators import login_required
 from .models import Carro, CarroItem
 from clientes.models import Cliente
-from pedidos.models import Pedido 
+from pedidos.models import Pedido
+from django.http import JsonResponse
+
 
 def home_view(request):
     cart_count = 0  # Inicializa la variable del conteo del carrito a 0
@@ -29,7 +31,7 @@ def cart_detail(request):
         context = {
             'carro': carro,  # Pasa el carrito al contexto
         }
-        return render(request, 'carro/cart_detail.html', context)  # Renderiza la plantilla con el contexto
+        return render(request, 'carro/cart_detail.html', {'carro': carro})
     else:
         return render(request, 'carro/cart_detail.html', {})  # Si el usuario no tiene 'rut_cli', renderiza la plantilla vacía
 
@@ -53,18 +55,18 @@ def add_to_cart(request, producto_id):
                     carro_item.quantity += 1  # Incrementa la cantidad del item en el carrito
                     carro_item.save()  # Guarda el item
                     carro.update_total()  # Actualiza el total del carrito
-                    messages.success(request, f"{producto.titulo_prod} se ha agregado al carrito.")
+                    messages.success(request, f"{producto.titulo_prod} se ha agregado al carro.")
                 else:
-                    messages.warning(request, f"No se pueden agregar más unidades de {producto.titulo_prod} al carrito.")
+                    messages.warning(request, f"No se pueden agregar más unidades de {producto.titulo_prod} al carro.")
             else:
                 carro.update_total()  # Actualiza el total del carrito si el item fue creado
-                messages.success(request, f"{producto.titulo_prod} se ha agregado al carrito.")
+                messages.success(request, f"{producto.titulo_prod} se ha agregado al carro.")
 
             return redirect('product_detail', id_prod=producto_id)  # Redirige a la página de detalle del producto
         else:
             messages.error(request, f"No hay stock disponible para {producto.titulo_prod}.")
     else:
-        messages.error(request, "Debe iniciar sesión para agregar productos al carrito.")
+        messages.error(request, "Debe iniciar sesión para agregar productos al carro.")
 
     return redirect('product_detail', id_prod=producto_id)  # Redirige a la página de detalle del producto en caso de error
 
@@ -89,21 +91,24 @@ def update_cart(request):
                 action = request.POST.get(f'action', '')
                 if action == f'resta_{item_id}':
                     item.quantity -= 1  # Resta 1 a la cantidad del item
+                    messages.success(request, f"Se ha quitado una unidad de {item.producto.titulo_prod} del carro.")
                 elif action == f'suma_{item_id}':
                     if item.quantity < item.producto.stock_prod:
                         item.quantity += 1  # Suma 1 a la cantidad del item si hay suficiente stock
+                        messages.success(request, f"Se ha agregado una unidad de {item.producto.titulo_prod} al carro.")
                     else:
-                        messages.warning(request, f"No se pueden agregar más unidades de {item.producto.titulo_prod} al carrito.")
+                        messages.warning(request, f"No se pueden agregar más unidades de {item.producto.titulo_prod} al carro.")
                 else:
                     pass
 
                 if item.quantity <= 0:
                     item.delete()  # Elimina el item si la cantidad es 0 o menor
+                    messages.warning(request, f"Se ha quitado {item.producto.titulo_prod} del carro.")
                 else:
                     item.save()  # Guarda los cambios en el item
 
         carro.update_total()  # Actualiza el total del carrito
-        messages.success(request, 'Carro actualizado correctamente.')
+
         return redirect('carro:cart_detail')  # Redirige a la vista del detalle del carrito
 
     else:

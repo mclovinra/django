@@ -1,14 +1,9 @@
 # carro/views.py
 from django.shortcuts import render
 from tienda.models import Producto, Categoria, CategoriaProd
+from carro.models import Carro, CarroItem
 
 def home_view(request):
-    cart_count = 0  # Inicializa la variable del conteo del carrito a 0
-    
-    # Verifica si el usuario está autenticado
-    if request.user.is_authenticated:
-        # Lógica para obtener la cantidad de artículos en el carrito
-        cart_count = 0  # Reemplaza con tu lógica para contar los artículos en el carrito
 
     # Obtiene una lista de los primeros 12 productos del tipo 'Comic' que tienen stock disponible
     comics_list = Producto.objects.filter(tipo_prod='Comic', stock_prod__gte=1)[:12]
@@ -18,7 +13,6 @@ def home_view(request):
 
     # Crea el contexto para pasar a la plantilla
     context = {
-        'cart_count': cart_count,  # Conteo de artículos en el carrito
         'comics': comics_list,  # Lista de cómics disponibles
         'mangas': mangas_list,  # Lista de mangas disponibles
     }

@@ -251,3 +251,13 @@
     padding: 20px;
     border: 1px solid #ccc;
 }
+.align-self-center {
+    align-self: center;
+}
+
+.d-flex .btn {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}

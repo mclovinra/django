@@ -23,16 +23,16 @@
   <div class="container-fluid mt-2">
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{% static 'appweb/img/logo.gif' %}" alt="sharingan" class="img-logo">
-                Sharingann
-            <img src="{% static 'appweb/img/logo.gif' %}" alt="sharingan" class="img-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarColor01">
+          <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'appweb/img/logo.gif' %}" alt="sharingan" class="img-logo">
+              Sharingann
+          <img src="{% static 'appweb/img/logo.gif' %}" alt="sharingan" class="img-logo">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                 <a class="nav-link" href="{% url 'home' %}">Inicio
@@ -51,26 +51,26 @@
             <form class="d-flex" role="search" action="{% url 'search' %}" method="GET">
               <input id="searchInput" class="form-control mr-1" type="search" name="q" placeholder="Buscar..." aria-label="Search">
               <button id="searchButton" class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-          </form>
-        </div>
-
+            </form>
             {% if user.is_authenticated %}
-              <span class="navbar-text ml-4">Bienvenido, {{ user.get_short_name }}</span>
-              <a href="{% url 'carro:cart_detail' %}" class="btn btn-outline-light ml-4 position-relative">
-                <i class="bi bi-cart"></i> Carrito
-                {% if cart_count > 0 %}
-                  <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">{{ cart_count }}</span>
-                {% endif %}
-            </a>
-              <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-outline-danger ml-4">Logout</button>
-              </form>
+              <div class="d-flex align-items-center">
+                <a href="{% url 'carro:cart_detail' %}" class="btn btn-outline-light ml-2 position-relative">
+                  <i class="bi bi-cart"></i> Carro
+                  {% if cart_count > 0 %}
+                      <span class="badge badge-danger position-absolute top-0 start-100 translate-middle">{{ cart_count }}</span>
+                  {% endif %}
+                </a>
+                <span class="navbar-text ml-2">Bienvenido, {{ user.get_short_name }}</span>
+                <form method="post" action="{% url 'logout' %}" class="form-inline my-2 my-lg-0 align-self-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger ml-2">Logout</button>
+                </form>
+              </div>
             {% else %}
               <a href="{% url 'login' %}" class="btn btn-outline-light ml-4">Login</a>
               <a href="{% url 'registro' %}" class="btn btn-outline-light ml-4">Registrarse</a>
             {% endif %}
-
+          </div>
         </nav>
     </div>
   </div> 

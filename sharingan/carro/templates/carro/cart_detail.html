@@ -46,6 +46,16 @@
           <h5>Total del Pedido: ${{ carro.total_pedido }}</h5>
 
           <a href="{% url 'carro:crear_pedido_desde_carro' carro_id=carro.id_pedido %}" class="btn btn-primary mb-2" onclick="showLoadingSpinner(event)">Ir a Pagar</a>
+
+          {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} mt-2">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+          {% endif %}
           
           <div id="success-message" class="texto-blanco titulos" style="display: none;">
             <div class="spinner-border" ></div>
@@ -56,6 +66,15 @@
         </form>
 
       {% else %}
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} mt-2">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+          {% endif %}
         <h2 class="texto-rojo mt-5">No hay productos en el carro</h2>
         <a id="volverInicio" href="{% url 'home' %}" class="btn btn-warning mb-2">Inicio</a>
       {% endif %}

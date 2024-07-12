@@ -25,6 +25,15 @@
                         {% if user.is_authenticated %}
                         <a id="liveAlertPlaceholder" href="{% url 'carro:add_to_cart' producto.id_prod %}" class="btn btn-success">Agregar</a>
                         {% endif %}
+                        {% if messages %}
+                            <div class="messages">
+                                {% for message in messages %}
+                                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} mt-2">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
