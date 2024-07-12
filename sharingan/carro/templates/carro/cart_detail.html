@@ -33,7 +33,7 @@
                 <td>
                   <div class="input-group">
                     <button type="submit" name="action" value="resta_{{ item.id }}" class="btn btn-sm btn-outline-secondary">-</button>
-                    <input type="number" id="item_{{ item.id }}_quantity" name="item_{{ item.id }}_quantity" value="{{ item.quantity }}" class="form-control text-center" style="width: 50px;" min="1">
+                    <input type="number" id="item_{{ item.id }}_quantity" name="item_{{ item.id }}_quantity" value="{{ item.quantity }}" class="form-control text-center" style="width: 50px;" min="1" readonly>
                     <button type="submit" name="action" value="suma_{{ item.id }}" class="btn btn-sm btn-outline-secondary">+</button>
                   </div>
                 </td>

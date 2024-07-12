@@ -105,7 +105,7 @@ def login_view(request):
                 print(f"Usuario {rut} ha iniciado sesión correctamente.")
                 return redirect('home')  # Redirige al usuario a la página de inicio
             else:
-                print(f"Intento de inicio de sesión fallido para usuario {rut}.")
+                messages.error(request, 'Usuario y/o Contraseña incorrecta')
                 form.add_error(None, 'Rut o contraseña incorrectos')  # Agrega un error al formulario si la autenticación falla
     else:
         form = ClienteLoginForm()  # Crea un formulario vacío si el método no es POST
