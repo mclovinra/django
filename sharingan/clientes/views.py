@@ -22,9 +22,15 @@ def registro_view(request):
             cliente.user = user  # Asigna el usuario recién creado al cliente
             cliente.save()  # Guarda el cliente en la base de datos
 
-            messages.success(request, 'Registro completado exitosamente.')  # Mensaje de éxito
             return redirect('login')  # Redirige al usuario a la página de inicio de sesión
         else:
+
+            pass1=form.cleaned_data['password1'],  # Usa el rut_cli como nombre de usuario
+            pass2=form.cleaned_data['password2']
+
+            if pass1 != pass2:
+                messages.error(request, 'Las contraseñas no coinciden')
+
             messages.error(request, 'Por favor, corrija los errores en el formulario.')  # Mensaje de error si el formulario no es válido
     else:
         form = ClienteRegisterForm()  # Crea un formulario vacío si el método no es POST

@@ -42,3 +42,19 @@ function showLoadingSpinner(event) {
 }
 
 
+// function verificarContrasenas() {
+//     var password1 = document.getElementById("password1").value;
+//     var password2 = document.getElementById("password2").value;
+
+//     if (password1 !== password2) {
+//         document.getElementById("password1").focus();
+//         return false;  // Evita que se envíe el formulario si las contraseñas no coinciden
+//     }
+//     return true;  // Permite que se envíe el formulario si las contraseñas coinciden
+// }
+
+
+// // Agregar el evento onSubmit al formulario para llamar a la función verificarContrasenas
+// document.getElementById("validacion").onsubmit = function() {
+//     verificarContrasenas();
+// };

@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.hashers import make_password, check_password
 from django.conf import settings
@@ -34,7 +34,7 @@ class ClienteManager(BaseUserManager):
 
 # Modelo de Cliente personalizado que hereda de AbstractBaseUser
 class Cliente(AbstractBaseUser):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Relación uno a uno con el modelo de usuario de Django
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cliente')  # Relación uno a uno con el modelo de usuario de Django
     rut_cli = models.CharField(primary_key=True, max_length=8, validators=[validate_only_numbers])  # Campo Rut como clave primaria
     dv_cli = models.CharField(max_length=1)  # Campo dígito verificador del Rut
     nombre_cli = models.CharField(max_length=20)  # Nombre del cliente
@@ -85,3 +85,15 @@ class Cliente(AbstractBaseUser):
     class Meta:
         verbose_name = _('cliente')  # Nombre singular del modelo en la interfaz administrativa
         verbose_name_plural = _('clientes')  # Nombre plural del modelo en la interfaz administrativa
+
+# Señal para eliminar el User cuando se elimina el Cliente
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
+@receiver(post_delete, sender=Cliente)
+def delete_user_on_cliente_delete(sender, instance, **kwargs):
+    try:
+        user = instance.user
+        user.delete()
+    except User.DoesNotExist:
+        pass

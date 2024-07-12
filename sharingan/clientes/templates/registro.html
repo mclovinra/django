@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
-{% load static %}
+{%load static%}
 
 {% block content %}
     <div class="cuerpo2">
-        <div class="contenedor4">
-            <form id="validacion" method="post" novalidate>
+        <div class="contenedor4 centered-login">
+            <div>
+                <img src="{% static 'appweb/img/logo.gif' %}" alt="sharingan" class="img-logo mt-2" style="border-radius: 1.5rem;">
+            </div>
+            <form id="validacion" method="post">
                 {% csrf_token %}
                 <div class="grupo">
                     <span>Rut</span>
@@ -59,10 +62,17 @@
                         <input type="submit" value="Registrarse">
                     </div>
                 </div>
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} mt-2">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <small id="userMessage"></small>
             </form>
         </div>
     </div>
-
-    
 {% endblock %}
