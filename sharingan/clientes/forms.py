@@ -47,5 +47,5 @@ class ClienteRegisterForm(forms.ModelForm):
 
 # Formulario de inicio de sesión para clientes
 class ClienteLoginForm(forms.Form):
-    rut = forms.CharField(max_length=20, required=True, label='Rut')  # Campo para el Rut del cliente
+    rut = forms.CharField(max_length=10, required=True, label='Rut')  # Campo para el Rut del cliente
     password = forms.CharField(widget=forms.PasswordInput, required=True, label='Contraseña')  # Campo para la contraseña del cliente

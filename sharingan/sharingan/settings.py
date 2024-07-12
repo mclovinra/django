@@ -130,3 +130,10 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
+
+
+LOGIN_URL = '/clientes/login/'  # Ajusta la URL según tu configuración de URLs
+
+MESSAGE_TAGS = {
+    50: 'alert-danger',
+}
